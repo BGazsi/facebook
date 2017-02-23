@@ -1,0 +1,31 @@
+{
+  "name": "facebook-bence",
+  "version": "1.0.0",
+  "description": "facebook-like sitebuild",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BGazsi/facebook.git"
+  },
+  "keywords": [
+    "facebook",
+    "sitebuild",
+    "node"
+  ],
+  "author": "bence",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BGazsi/facebook/issues"
+  },
+  "homepage": "https://github.com/BGazsi/facebook#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "express-busboy": "^5.0.0",
+    "express-session": "^1.15.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
+  }
+}
