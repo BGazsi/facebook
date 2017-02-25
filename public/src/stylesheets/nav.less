@@ -1,0 +1,37 @@
+//navigation
+@media(min-width: @grid-float-breakpoint) {
+  .navbar-nav {
+    &.navbar-search {
+      width: 40%;
+      margin-top: 8px;
+      form {
+        margin-bottom: 0;
+      }
+    }
+    > li > a {
+      padding-top:    @navbar-padding-vertical;
+      padding-bottom: @navbar-padding-vertical;
+
+      &.user-menu-dropdown {
+        padding: 10px
+      }
+    }
+  }
+}
+
+.navbar-brand .img-responsive {
+  max-height: 100%;
+}
+
+.nav>li>a {
+  >.username {
+    display: inline-flex;
+    justify-content: center;
+    vertical-align: middle;
+  }
+  >img.img-profile {
+    max-width: 30px;
+    display: inline;
+    margin-right: 5px;
+  }
+}

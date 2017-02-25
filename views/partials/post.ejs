@@ -1,0 +1,32 @@
+<a id="<%=post.id%>" class="anchor"></a>
+<article class="well">
+    <img class="user-image" src="<%= post.profpic %>" alt="<%=post.name%>">
+    <span class="post-header"><%= post.name %>, <%= post.time %> ago</span>
+    <section class="description"><%= post.desc %></section>
+    <%if(post.img){ %>
+        <img class="img-responsive" src="<%= post.img %>" alt="<%=post.name%> post">
+    <% } %>
+    <section class="actions">
+        <a href="#" class="like">Like</a>
+        <a href="#" class="like">Comment</a>
+    </section>
+    <section class="comment-section">
+        <%if(post.comments){
+            post.comments.forEach(function(comment) { %>
+                <% include ./comment.ejs%>
+            <%});%>
+
+        <% } %>
+
+        <div>
+            <img src="<%= tpl.user.img %>" alt="<%=tpl.user.shortName%>" class="user-image">
+            <form action="/comment" class="form-inline">
+                <div class="form-group">
+                    <textarea class="form-control" cols="60" placeholder="Write a comment"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Comment">
+            </form>
+        </div>
+
+    </section>
+</article>

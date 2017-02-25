@@ -5,7 +5,75 @@
 </head>
 <body>
 <header>
-    <h1>asdasd</h1>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img class="img-responsive" src="/public/images/logo.png" alt=""></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-search">
+                    <li>
+                        <form action="/search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="What are you looking for?">
+                                <span class="input-group-btn">
+                                    <input type="submit" class="btn btn-default" value="Search">
+                                </span>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#first">First post</a></li>
+                    <li><a href="#second">Second post</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle user-menu-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img class="img-responsive img-circle img-profile" src="<%=tpl.user.img%>" alt="Bence">
+                            <span class="username"><%= tpl.user.shortName %> </span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Preferences</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Account management</li>
+                            <li><a href="#">Change account</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>
+<main class="main-content container">
+    <div class="row">
+        <section class="newsfeed col-sm-9 col-xs-12 pull-right">
+            <a id="post" class="anchor"></a>
+            <article class="well text-right">
+                <form action="/post">
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Hey Bence! What's up?"></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Post">
+                </form>
+            </article>
+            <% tpl.posts.forEach(function(post) { %>
+                <%include ./partials/post.ejs%>
+            <%});%>
+
+        </section>
+        <% include ./partials/leftMenu.ejs %>
+    </div>
+</main>
+
+<script src="/public/dist/js/script.js"></script>
 </body>
 </html>

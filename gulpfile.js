@@ -13,3 +13,14 @@ gulp.task('less', function() {
         .pipe(cleancss({compatibility: 'ie8'}))
         .pipe(gulp.dest('./public/dist/stylesheets/'));
 });
+
+gulp.task('scripts', function() {
+    return gulp.src(['./node_modules/jquery/dist/jquery.min.js',
+        './node_modules/bootstrap/js/transition.js',
+        './node_modules/bootstrap/js/dropdown.js',
+        './node_modules/bootstrap/js/collapse.js',
+        './node_modules/bootstrap/js/affix.js',
+        './public/src/js/script.js'])
+        .pipe(concat('script.js'))
+        .pipe(gulp.dest('./public/dist/js/'));
+});
