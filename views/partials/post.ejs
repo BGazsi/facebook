@@ -1,7 +1,7 @@
 <a id="<%=post.id%>" class="anchor"></a>
 <article class="well">
     <img class="user-image" src="<%= post.profpic %>" alt="<%=post.name%>">
-    <span class="post-header"><%= post.name %>, <%= post.time %> ago</span>
+    <span class="post-header"><%= post.name %>, <time><%= post.time %></time> ago</span>
     <section class="description"><%= post.desc %></section>
     <%if(post.img){ %>
         <img class="img-responsive" src="<%= post.img %>" alt="<%=post.name%> post">
