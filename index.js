@@ -1,6 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var bb = require('express-busboy');
+var userModel = require('./models/users');
 
 var app = express();
 
@@ -34,9 +35,37 @@ passport.use(new FacebookStrategy({
         clientID: '706772239493804',
         clientSecret: '25326871b8d33cf3d8a02d678d8a3619',
         callbackURL: '/auth/facebook/callback',
+        profileFields: ['id', 'displayName', 'name', 'picture.type(large)'],
         passReqToCallback: true
-    }, function(){console.log('asd')}));
+    }, function(req, accessToken, refreshToken, profile, done) {
+        var fbUser;
 
+        userModel.findOne({
+            _id: profile.id
+        }, function (err, result) {
+            if (!!result) {
+                fbUser = result;
+            }
+        });
+
+        if (fbUser) {
+            req.session.user = fbUser;
+            done();
+        } else {
+            var userObject = {
+                _id: profile.id,
+                email: profile.displayName,
+                name: profile.displayName,
+                photo: profile.photos[0].value
+            };
+            userModel.insertMany(
+                [userObject]
+            );
+            req.session.user = userObject;
+            done();
+        }
+    })
+);
 
 app.use('/public', express.static('public', { maxAge: 86400000 }));
 
@@ -44,7 +73,7 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
             successRedirect: '/',
-            failureRedirect: '/login'
+            failureRedirect: '/'
         }
     ));
 require('./routes/main')(app);
