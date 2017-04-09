@@ -5,6 +5,7 @@ var generatePostsMW = require('../middlewares/generatePosts');
 var getAllPostsMW = require('../middlewares/getAllPosts');
 var returnUserDataMW = require('../middlewares/returnUserData');
 var createPostMW = require('../middlewares/createPost');
+var isLoggedInMW = require('../middlewares/isLoggedIn');
 var renderTemplateMW = require('../middlewares/renderTemplate');
 
 exports = module.exports = function(app) {
@@ -13,11 +14,8 @@ exports = module.exports = function(app) {
         'postModel': postModel
     };
 
-    //todo: passport login check
     app.use('/home',
-        function(req, res, next) {
-            return !req.session.user ? res.redirect('/login') : next();
-        },
+        isLoggedInMW(),
         generatePostsMW(objectRepository),
         returnUserDataMW(),
         renderTemplateMW('index')
@@ -33,6 +31,7 @@ exports = module.exports = function(app) {
     });
 
     app.post('/new-post',
+        isLoggedInMW(),
         createPostMW(objectRepository),
         getAllPostsMW(objectRepository),
         renderTemplateMW('index')
