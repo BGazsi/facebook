@@ -104,3 +104,7 @@ typings/
 .env
 
 
+.idea/
+facebook.iml
+public/.DS_Store
+public/dist/
