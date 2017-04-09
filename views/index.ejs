@@ -30,7 +30,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle user-menu-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <img class="img-responsive img-circle img-profile" src="<%=user.photo%>" alt="Bence">
-                            <span class="username"><%= tpl.user.shortName %> </span>
+                            <span class="username"><%= tpl.user.name %> </span>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
@@ -53,9 +53,9 @@
         <section class="newsfeed col-sm-9 col-xs-12 pull-right">
             <a id="post" class="anchor"></a>
             <article class="well text-right">
-                <form action="/post">
+                <form action="/new-post" method="post">
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Hey Bence! What's up?"></textarea>
+                        <textarea class="form-control" placeholder="Hey Bence! What's up?" id="desc" name="desc"></textarea>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Post">
                 </form>

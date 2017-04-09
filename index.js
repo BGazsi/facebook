@@ -1,6 +1,7 @@
 var express = require('express');
 var session = require('express-session');
 var bb = require('express-busboy');
+var mongoose = require('mongoose');
 var userModel = require('./models/users');
 
 var app = express();
@@ -22,8 +23,8 @@ app.use(session({
 
 app.use(function (req, res, next) {
 
-    res.tpl = {};
-    res.tpl.error = [];
+    req.tpl = {};
+    req.tpl.error = [];
 
     return next();
 });
@@ -41,29 +42,31 @@ passport.use(new FacebookStrategy({
         var fbUser;
 
         userModel.findOne({
-            _id: profile.id
+            fb_id: parseInt(profile.id)
         }, function (err, result) {
-            if (!!result) {
-                fbUser = result;
+            fbUser = result;
+            if (fbUser) {
+                req.session.user = fbUser;
+                done();
+            } else {
+                var userObject = {
+                    fb_id: parseInt(profile.id),
+                    email: profile.displayName,
+                    name: profile.displayName,
+                    photo: profile.photos[0].value
+                };
+                userModel.insertMany(
+                    [userObject],
+                    function(err, res) {
+                        if(err) {
+                            console.log('error on user insert: ', err);
+                        }
+                    }
+                );
+                req.session.user = userObject;
+                done();
             }
         });
-
-        if (fbUser) {
-            req.session.user = fbUser;
-            done();
-        } else {
-            var userObject = {
-                _id: profile.id,
-                email: profile.displayName,
-                name: profile.displayName,
-                photo: profile.photos[0].value
-            };
-            userModel.insertMany(
-                [userObject]
-            );
-            req.session.user = userObject;
-            done();
-        }
     })
 );
 

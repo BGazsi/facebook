@@ -3,8 +3,8 @@ module.exports = function (viewName) {
     return function (req, res) {
 
         res.render(viewName, {
-            user: req.session.user,
-            tpl:  res.tpl
+            user: req.tpl.user || req.session.user,
+            tpl:  req.tpl
         });
     };
 };

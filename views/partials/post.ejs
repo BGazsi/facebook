@@ -1,7 +1,7 @@
 <a id="<%=post.id%>" class="anchor"></a>
 <article class="well">
-    <img class="user-image" src="<%= post.profpic %>" alt="<%=post.name%>">
-    <span class="post-header"><%= post.name %>, <time><%= post.time %></time> ago</span>
+    <img class="user-image" src="<%= post.user.photo %>" alt="<%=post.user.name%>">
+    <span class="post-header"><%= post.user.name %>, <time><%= new Date(new Date() - post.time).getHours() %></time>h ago</span>
     <section class="description"><%= post.desc %></section>
     <%if(post.img){ %>
         <img class="img-responsive" src="<%= post.img %>" alt="<%=post.name%> post">
@@ -15,11 +15,9 @@
             post.comments.forEach(function(comment) { %>
                 <% include ./comment.ejs%>
             <%});%>
-
         <% } %>
-
         <div>
-            <img src="<%= tpl.user.img %>" alt="<%=tpl.user.shortName%>" class="user-image">
+            <img src="<%= tpl.user.photo %>" alt="<%=tpl.user.name%>" class="user-image">
             <form action="/comment" class="form-inline">
                 <div class="form-group">
                     <textarea class="form-control" cols="60" placeholder="Write a comment"></textarea>

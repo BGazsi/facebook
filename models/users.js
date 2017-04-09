@@ -11,9 +11,10 @@ var userSchema = new Schema({
         type: String,
         required: true
     },
+    fb_id: Number,
     name: String,
     photo: String
-});
+}, {_id: true});
 
 userSchema.plugin(autoIncrement.plugin, 'Users');
 var Users = connection.model('Users', userSchema);
