@@ -14,12 +14,30 @@ gulp.task('less', function() {
         .pipe(gulp.dest('./public/dist/stylesheets/'));
 });
 
-gulp.task('scripts', function() {
+gulp.task('sw', function() {
+    return gulp.src(['./public/src/js/sw.js'])
+        .pipe(gulp.dest('./public/dist/js/'));
+});
+
+gulp.task('idb', function() {
+    return gulp.src(['./public/src/js/idb.js'])
+        .pipe(gulp.dest('./public/dist/js/'));
+});
+
+gulp.task('store', function() {
+    return gulp.src(['./public/src/js/store.js'])
+        .pipe(gulp.dest('./public/dist/js/'));
+});
+
+gulp.task('scripts', ['sw', 'idb', 'store'], function() {
     return gulp.src(['./node_modules/jquery/dist/jquery.min.js',
         './node_modules/bootstrap/js/transition.js',
         './node_modules/bootstrap/js/dropdown.js',
         './node_modules/bootstrap/js/collapse.js',
         './node_modules/bootstrap/js/affix.js',
+        './public/src/js/idb.js',
+        './public/src/js/store.js',
+        './public/src/js/app.js',
         './public/src/js/script.js'])
         .pipe(concat('script.js'))
         .pipe(gulp.dest('./public/dist/js/'));

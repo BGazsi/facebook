@@ -55,8 +55,8 @@ passport.use(new FacebookStrategy({
                     name: profile.displayName,
                     photo: profile.photos[0].value
                 };
-                userModel.insertMany(
-                    [userObject],
+                userModel.collection.insertOne(
+                    userObject,
                     function(err, res) {
                         if(err) {
                             console.log('error on user insert: ', err);
